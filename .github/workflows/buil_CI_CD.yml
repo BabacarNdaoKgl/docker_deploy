@@ -23,7 +23,7 @@ jobs:
         # -B for batch mode, --file pom.xml is often default but explicit here
         run: mvn -B package --file pom.xml
 
-
+  # -B for batch mode, --file pom.xml is often default but explicit here
   test:
     runs-on: ubuntu-latest
     needs: build # Ensures build job completes successfully first
