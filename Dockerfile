@@ -1,15 +1,11 @@
-# Utilisation de l'image de base Java 17
+# Utilise une image Java
 FROM openjdk:17-jdk-slim
 
-# Copie le fichier JAR dans le conteneur
-COPY target/multiplication-0.0.1-SNAPSHOT.jar /app/multiplication.jar
-
-# Définit le répertoire de travail
+# Crée un dossier dans le conteneur
 WORKDIR /app
 
-# Expose le port de l'application
-EXPOSE 8080
+# Copie le .jar compilé dans le conteneur
+COPY target/multiplication-0.0.1-SNAPSHOT.jar /app/multiplication.jar
 
 # Commande pour exécuter l'application
-ENTRYPOINT ["java", "-jar", "multiplication.jar"]
-             
+ENTRYPOINT ["java", "-jar", "/app/multiplication.jar"]
