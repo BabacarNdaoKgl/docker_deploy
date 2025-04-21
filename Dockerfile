@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copie le .jar compilé dans le conteneur
-COPY target/multiplication-0.0.1-SNAPSHOT.jar /app/multiplication.jar
+COPY doc/multiplication-0.0.1-SNAPSHOT.jar /app/multiplication.jar
 
 # Commande pour exécuter l'application
 ENTRYPOINT ["java", "-jar", "/app/multiplication.jar"]
