@@ -72,4 +72,4 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/multiplication-ssh:latest
             docker stop test-api || true
             docker rm test-api || true
-            docker run -d -p 8080:8080 --name test-api ${{ secrets.DOCKER_USERNAME }}/multiplication-ssh:latest
+            docker run -d -p 9090:8080 --name test-api ${{ secrets.DOCKER_USERNAME }}/multiplication-ssh:latest
