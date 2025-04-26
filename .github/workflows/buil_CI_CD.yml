@@ -60,10 +60,10 @@ jobs:
         with:
           context: .
           push: true
-          tags: babacar1011/multiplication_:latest
+          tags: babacar1011/multiplication-ssh:latest
 
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/babacar1011/multiplication_:latest
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/babacar1011/multiplication-ssh:latest
 
       - name: Deploy to server via SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -72,7 +72,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull babacar1011/multiplication_:latest
+            docker pull babacar1011/multiplication-ssh:latest
             docker stop test-api || true
             docker rm test-api || true
-            docker run -d -p 8080:8080 --name test-api babacar1011/multiplication_:latest
+            docker run -d -p 8080:8080 --name test-api babacar1011/multiplication-ssh:latest
