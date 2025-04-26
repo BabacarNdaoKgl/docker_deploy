@@ -20,13 +20,11 @@ jobs:
           java-version: '17'
 
       - name: Build with Maven
-        # -B for batch mode, --file pom.xml is often default but explicit here
         run: mvn -B package --file pom.xml
 
-  # -B for batch mode, --file pom.xml is often default but explicit here
   test:
     runs-on: ubuntu-latest
-    needs: build # Ensures build job completes successfully first
+    needs: build
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -64,4 +62,17 @@ jobs:
           push: true
           tags: babacar1011/multiplication:latest
 
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/babacar1011/multiplication:latest
 
+      - name: Deploy to server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker pull babacar1011/multiplication:latest
+            docker stop test-api || true
+            docker rm test-api || true
+            docker run -d -p 8080:8080 --name test-api babacar1011/multiplication:latest
